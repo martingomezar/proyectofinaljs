@@ -1040,6 +1040,9 @@ iframe {
     }
 }
 
+.container__image{
+    width: 25vh;
+}
 @media (max-width: 575px) {
     .container {
         max-width: 540px;
