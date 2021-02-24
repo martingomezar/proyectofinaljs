@@ -1,5 +1,5 @@
 body {
-    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 17px;
     font-weight: 300;
     color: #666666;
@@ -69,6 +69,13 @@ a.active {
 
 .tm-site-name {
     font-size: 4rem;
+    padding: 50px;
+    margin: 10px;
+}
+
+.saludo{
+    color: rgb(125, 157, 172);
+    padding: 40px;
 }
 
 .tm-search-form-container {
@@ -1041,13 +1048,19 @@ iframe {
 }
 
 .container__image{
-    width: 25vh;
+    width: 10vw;
+    height: 30vh;
 }
 @media (max-width: 575px) {
     .container {
         max-width: 540px;
     }
-
+    .container__image{
+        width: 30vw;
+        height: 40vh;
+        display: flex;
+        justify-content: center;
+    }
     .form-inline .form-control.tm-search-input {
         width: 100%;
         margin-bottom: 20px;

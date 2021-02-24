@@ -4,16 +4,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>TrabajoFinal JS CoderHouse</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
   <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- https://getbootstrap.com/ -->
   <script src="https://kit.fontawesome.com/0a5b4eaa5b.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css"> <!-- Templatemo style -->
-
   <script>
     var renderPage = true;
-
     if (navigator.userAgent.indexOf('MSIE') !== -1
       || navigator.appVersion.indexOf('Trident/') > 0) {
       alert("Please view this in a modern browser such as Chrome or Microsoft Edge.");
@@ -43,111 +42,102 @@
 
       <div class="container text-center tm-welcome-container">
         <div class="tm-welcome">
-          <i class="fas fa-mobile-alt tm-fa-big tm-fa-mb-big"></i>
-          <h1 id="bienvenida" class="text-uppercase mb-3 tm-site-name bienvenida">Venta de Telefonos</h1>
+
+          <h1 id="bienvenida" class="text-uppercase mb-3 tm-site-name">Cellphones Sales</h1>
         </div>
       </div>
     </div>
 
-    <div class="container">
-      <div class="tm-search-form-container">
-        <form action="index.html" method="GET" class="form-inline tm-search-form d-flex justify-content-around">
-          <div class="text-uppercase">Buscar Telefono</div>
-          <div class="form-group tm-search-box form">
-            <input type="text" name="keyword" class="form-control tm-search-input" placeholder="Ingrese Modelo...">
-            <input type="submit" value="Buscar" class="form-control tm-search-submit">
+    <div class="row tm-albums-container grid">
+      <div class="col-sm-6 col-12 col-md-12 col-lg-4 col-xl-4 tm-album-col">
+        <figure class="effect-sadie">
+          <img src="assets/iphone.jpg" alt="Image" class="img-fluid">
+          <figcaption>
+            <h2>Iphone</h2>
+            <p>Busca los ultimos modelos de Apple</p>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="col-sm-6 col-12 col-md-12 col-lg-4 col-xl-4 tm-album-col">
+        <figure class="effect-sadie">
+          <img src="assets/motorola.jpg" alt="Image" class="img-fluid">
+          <figcaption>
+            <h2>Motorola</h2>
+            <p>Lo mejor en gama media</p>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="col-sm-6 col-12 col-md-12 col-lg-4 col-xl-4 tm-album-col">
+        <figure class="effect-sadie">
+          <img src="assets/xiaomi.jpg" alt="Image" class="img-fluid">
+          <figcaption>
+            <h2>Xiaomi</h2>
+            <p>Novedades del lider Chino</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="tm-tag-line">
+          <input id="marcaIngresada" type="text" placeholder="Que marca buscas?">
+          <button id="btnBuscar">Buscar</button>
+          
+        </div>
+      </div>
+    </div>
+
+    <div id="tarjetas"></div>
+
+    <div class="row tm-mb-big tm-subscribe-row">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 tm-bg-gray tm-subscribe-form">
+        <h3 class="tm-text-pink tm-mb-30">Recibi nuestras novedades</h3>
+        <p class="tm-mb-30">Deja tus datos para saber sobre nuestras ofertas</p>
+        <form action="index.html" method="POST">
+          <div class="form-group mb-0">
+            <input type="text" class="form-control tm-subscribe-input" placeholder="Email...">
+            <input type="submit" value="Enviar" class="tm-bg-pink tm-text-white d-block ml-auto tm-subscribe-btn">
           </div>
         </form>
       </div>
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 img-fluid pl-0 tm-subscribe-img"></div>
+    </div>
 
-      <div class="row tm-albums-container grid">
-        <div class="col-sm-6 col-12 col-md-12 col-lg-4 col-xl-4 tm-album-col">
-          <figure class="effect-sadie">
-            <img src="assets/iphone.jpg" alt="Image" class="img-fluid">
-            <figcaption>
-              <h2>Iphone</h2>
-              <p>Busca los ultimos modelos de Apple</p>
-            </figcaption>
-          </figure>
-        </div>
-        <div class="col-sm-6 col-12 col-md-12 col-lg-4 col-xl-4 tm-album-col">
-          <figure class="effect-sadie">
-            <img src="assets/motorola.jpg" alt="Image" class="img-fluid">
-            <figcaption>
-              <h2>Motorola</h2>
-              <p>Lo mejor en gama media</p>
-            </figcaption>
-          </figure>
-        </div>
-        <div class="col-sm-6 col-12 col-md-12 col-lg-4 col-xl-4 tm-album-col">
-          <figure class="effect-sadie">
-            <img src="assets/xiaomi.jpg" alt="Image" class="img-fluid">
-            <figcaption>
-              <h2>Xiaomi</h2>
-              <p>Novedades del lider Chino</p>
-            </figcaption>
-          </figure>
-        </div>
+
+    <div class="row d-flex  tm-mb-medium">
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 mb-4">
+        <h4 class="mb-4 tm-font-300">Nosotros</h4>
+        <a href="#" class="tm-text-blue-dark d-block mb-2">Direccion</a>
+        <a href="#" class="tm-text-blue-dark d-block mb-2">Celular</a>
+        <a href="#" class="tm-text-blue-dark d-block mb-2">Whastapp</a>
       </div>
-
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="tm-tag-line">
-            <h2 class="tm-tag-line-title">Aca vas a encontrar los mejores celulares</h2>
-          </div>
-        </div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 mb-4">
+        <h4 class="mb-4 tm-font-300">Envios</h4>
+        <a href="#" class="tm-text-blue-dark d-block mb-2">Donde esta mi telefono</a>
+        <a href="#" class="tm-text-blue-dark d-block mb-2">Tuve problemas con la entrega</a>
+        <a href="#" class="tm-text-blue-dark d-block mb-2">El celular no funciona</a>
+        <a href="#" class="tm-text-blue-dark d-block">Reclamos</a>
       </div>
-
-      <div id="tarjetas"></div>
-           
-      <div class="row tm-mb-big tm-subscribe-row">
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 tm-bg-gray tm-subscribe-form">
-          <h3 class="tm-text-pink tm-mb-30">Recibi nuestras novedades</h3>
-          <p class="tm-mb-30">Deja tus datos para saber sobre nuestras ofertas</p>
-          <form action="index.html" method="POST">
-            <div class="form-group mb-0">
-              <input type="text" class="form-control tm-subscribe-input" placeholder="Email...">
-              <input type="submit" value="Enviar" class="tm-bg-pink tm-text-white d-block ml-auto tm-subscribe-btn">
-            </div>
-          </form>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 img-fluid pl-0 tm-subscribe-img"></div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+        <h4 class="mb-4 tm-font-300">Links</h4>
+        <a href="#" class="tm-text-blue-dark d-block mb-2">Motorola</a>
+        <a href="#" class="tm-text-blue-dark d-block mb-2">Xiaomi</a>
+        <a href="#" class="tm-text-blue-dark d-block mb-2">Iphone</a>
       </div>
+    </div>
 
-
-      <div class="row d-flex  tm-mb-medium">
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 mb-4">
-          <h4 class="mb-4 tm-font-300">Nosotros</h4>
-          <a href="#" class="tm-text-blue-dark d-block mb-2">Direccion</a>
-          <a href="#" class="tm-text-blue-dark d-block mb-2">Celular</a>
-          <a href="#" class="tm-text-blue-dark d-block mb-2">Whastapp</a>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 mb-4">
-          <h4 class="mb-4 tm-font-300">Envios</h4>
-          <a href="#" class="tm-text-blue-dark d-block mb-2">Donde esta mi telefono</a>
-          <a href="#" class="tm-text-blue-dark d-block mb-2">Tuve problemas con la entrega</a>
-          <a href="#" class="tm-text-blue-dark d-block mb-2">El celular no funciona</a>
-          <a href="#" class="tm-text-blue-dark d-block">Reclamos</a>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-          <h4 class="mb-4 tm-font-300">Links</h4>
-          <a href="#" class="tm-text-blue-dark d-block mb-2">Motorola</a>
-          <a href="#" class="tm-text-blue-dark d-block mb-2">Xiaomi</a>
-          <a href="#" class="tm-text-blue-dark d-block mb-2">Iphone</a>
-        </div>
+    <footer class="row">
+      <div class="col-xl-12">
+        <p class="text-center p-4">Copyright &copy; <span class="tm-current-year">2021</span> Martin Gomez - Curso
+          JavaScript CODERHOUSE</p>
       </div>
-
-      <footer class="row">
-        <div class="col-xl-12">
-          <p class="text-center p-4">Copyright &copy; <span class="tm-current-year">2021</span> Martin Gomez - Curso
-            JavaScript CODERHOUSE</p>
-        </div>
-      </footer>
+    </footer>
   </div>
 
   </div>
 
-  
+
   <script src="js/jquery-3.2.1.slim.min.js"></script>
   <script>
     $(function () {
@@ -160,6 +150,7 @@
     });
 
   </script>
+  <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
 
