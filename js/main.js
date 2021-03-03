@@ -127,7 +127,13 @@ function cards(celular) {
                                     <img src=${celular.fotofront} alt="Image" class="mr-3 container__image">
                                     <div class="media__btn">
                                         <h5>$${celular.precio}</h5>
-                                        <button class="btn" id="detalles__${celular.marca}__${celular.modelo}__${celular.color}">Detalles</button>
+                                        <button class="btn" id="btnModal__${celular.marca}__${celular.modelo}__${celular.color}">Detalles</button>
+                                        <div id="modal" class="modalContainer">
+                                            <div class="modal-content">
+                                                <span class="close">×</span> 
+                                                <h2>Modal</h2>
+                                            </div>
+                                        </div>
                                         <button class="btn" id="comprar__${celular.marca}__${celular.modelo}__${celular.color}">Comprar</button>
                                     </div>
                                 </div>
@@ -142,7 +148,8 @@ function cards(celular) {
                                 </div>
                             </div>
                         </div>
-                    </div>`;
+                    </div>
+                </div> `;
     padre.appendChild(contenedor);
 }
 
@@ -203,6 +210,29 @@ function filtros() {
     crearArray(filtroColor.sort());
 }
 
+function modal(id) {
+    var modal = document.getElementById("modal");
+    var btn = document.getElementById(`${id}`);
+    var span = document.getElementsByClassName("close")[0];
+    var body = document.getElementsByTagName("body")[0];
+    console.log(id);
+
+    btn.onclick = function () {
+        modal.style.display = "block";
+        body.style.position = "static";
+        body.style.height = "100%";
+        body.style.overflow = "hidden";
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+        body.style.position = "inherit";
+        body.style.height = "auto";
+        body.style.overflow = "visible";
+    }
+}
+
+
 //Flujo de la web
 nameStorage();
 crearFlagListadoCelulares();
@@ -215,6 +245,17 @@ btnFiltro.onclick = () => {
     eliminarCards();
     filtros();
 }
+
+$(document).on('click', 'button', function () {
+    let id = this.id;
+    if (id.slice(0, 8) === "btnModal") {
+        modal(id);
+    } else if (id.slice(0, 7) === "comprar") {
+        modal(id);
+    }
+});
+
+
 
 
 
