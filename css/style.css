@@ -253,6 +253,21 @@ a.active {
     cursor: pointer;
 }
 
+.modalSpecs{
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+align-items: center;
+}
+
+.precioModal{
+    font-size: 2em;
+}
+
+.tituloSpecs{
+    color: #000;
+}
+
 /* Loader */
 #loader-wrapper {
     position: fixed;

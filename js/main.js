@@ -129,9 +129,7 @@ function cards(celular) {
                                         <h5>$${celular.precio}</h5>
                                         <button class="btn" id="btnModal__${celular.marca}__${celular.modelo}__${celular.color}">Detalles</button>
                                         <div id="modal" class="modalContainer">
-                                            <div class="modal-content">
-                                                <span class="close">×</span> 
-                                                <h2>Modal</h2>
+                                            <div id="modal-content" class="modal-content">
                                             </div>
                                         </div>
                                         <button class="btn" id="comprar__${celular.marca}__${celular.modelo}__${celular.color}">Comprar</button>
@@ -215,13 +213,72 @@ function modal(id) {
     var btn = document.getElementById(`${id}`);
     var span = document.getElementsByClassName("close")[0];
     var body = document.getElementsByTagName("body")[0];
-    console.log(id);
 
     btn.onclick = function () {
-        modal.style.display = "block";
-        body.style.position = "static";
-        body.style.height = "100%";
-        body.style.overflow = "hidden";
+        const borrar = document.getElementById("modal-content");
+        while (borrar.firstChild) {
+            borrar.removeChild(borrar.lastChild);
+        }
+        let identificador = id.split("__");
+        let celularElegido = "";
+        for (celu in celulares) {
+            if (celulares[celu].marca == identificador[1]) {
+                if (celulares[celu].modelo == identificador[2]) {
+                    if (celulares[celu].color == identificador[3]) {
+                        celularElegido = "";
+                        celularElegido = celulares[celu];
+                    }
+                }
+            }
+        }
+        if (id.slice(0, 8) === "btnModal") {
+            modal.style.display = "block";
+            body.style.position = "static";
+            body.style.height = "100%";
+            body.style.overflow = "hidden";
+            padre = document.getElementById("modal-content");
+            let contenedor = document.createElement("div");
+            contenedor.innerHTML = `
+            <span class="close">×</span>
+            <div class=modalSpecs> 
+                <div>
+                    <img src="${celularElegido.fotofront}" alt="Image" class="mr-3 container__image">
+                    <img src="${celularElegido.fotoback}" alt="Image" class="mr-3 container__image">
+                </div>
+                <div>
+                    <h2>${celularElegido.marca} ${celularElegido.modelo}</h2>
+                    <p class=tituloSpecs>Color: <span>${celularElegido.color}</span></p>
+                    <p class=tituloSpecs>Sistema Operativo: <span>${celularElegido.so}</span></p>
+                    <p class=tituloSpecs>Pantalla: <span>${celularElegido.pantalla}</span></p>
+                    <p class=tituloSpecs>Camara: <span>${celularElegido.camara}</span></p>
+                    <p class=tituloSpecs>Precio: <span class=precioModal>$${celularElegido.precio}</span></p>
+                </div>
+            </div>
+            `;
+            padre.appendChild(contenedor);
+        } else if (id.slice(0, 7) === "comprar") {
+            modal.style.display = "block";
+            body.style.position = "static";
+            body.style.height = "100%";
+            body.style.overflow = "hidden";
+            padre = document.getElementById("modal-content");
+            let ingreso = "";
+            if (!localStorage.getItem("name")) {
+                ingreso = prompt("Hola, cual es tu nombre?")
+                localStorage.setItem("name", ingreso);
+            } else {
+                ingreso = localStorage.getItem("name");
+            }
+            let contenedor = document.createElement("div");
+            contenedor.innerHTML = `
+            <span class="close">×</span>
+            <div class=modalCompra> 
+                <p>${ingreso}, vas a comprar un ${celularElegido.marca} ${celularElegido.modelo} ${celularElegido.color}</p>
+                <p>Vas a pagar $${celularElegido.precio}</p>
+            </div>
+            `;
+            padre.appendChild(contenedor);
+        }
     }
 
     span.onclick = function () {
@@ -248,11 +305,7 @@ btnFiltro.onclick = () => {
 
 $(document).on('click', 'button', function () {
     let id = this.id;
-    if (id.slice(0, 8) === "btnModal") {
-        modal(id);
-    } else if (id.slice(0, 7) === "comprar") {
-        modal(id);
-    }
+    modal(id);
 });
 
 
