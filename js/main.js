@@ -25,15 +25,29 @@ class Cellphones {
 function nameStorage() {
     let ingreso = "";
     if (!localStorage.getItem("name")) {
-        ingreso = prompt("Hola, cual es tu nombre?")
-        localStorage.setItem("name", ingreso);
-    } else {
+        let padreSaludo = document.getElementById("bienvenida");
+        let saludo = document.createElement("p");
+        saludo.innerHTML = `<h5 class="saludo">Hola Extraño!, vamos a buscar tu celular!, queres <button id="registro">registrarte?</button></h5>`;
+        padreSaludo.appendChild(saludo);
+    } else if (localStorage.getItem("name")) {
         ingreso = localStorage.getItem("name");
+        if (localStorage.getItem("comprado")) {
+            let padreSaludo = document.getElementById("bienvenida");
+            let saludo = document.createElement("p");
+            saludo.innerHTML =
+                `<h5 class="saludo">Hola ${ingreso}, tenes un celular en tu carrito de compras</h5>
+                <button class="comprar" id="compraRecuperar">Ir carrito de compras</button>`;
+
+            padreSaludo.appendChild(saludo);
+        } else {
+            let padreSaludo = document.getElementById("bienvenida");
+            let saludo = document.createElement("p");
+            saludo.innerHTML = `<h5 class="saludo">Hola ${ingreso}, vamos a buscar tu celular</h5>`;
+            padreSaludo.appendChild(saludo);
+        }
     }
-    let padreSaludo = document.getElementById("bienvenida");
-    let saludo = document.createElement("p");
-    saludo.innerHTML = `<h5 class="saludo">Hola ${ingreso}, vamos a buscar tu celular</h5>`;
-    padreSaludo.appendChild(saludo);
+
+
 }
 
 //Creo un flag dentro del id tarjetas para ubicar lo que estoy creando
@@ -210,83 +224,164 @@ function filtros() {
 
 function modal(id) {
     var modal = document.getElementById("modal");
-    var btn = document.getElementById(`${id}`);
-    var span = document.getElementsByClassName("close")[0];
     var body = document.getElementsByTagName("body")[0];
-
-    btn.onclick = function () {
-        const borrar = document.getElementById("modal-content");
-        while (borrar.firstChild) {
-            borrar.removeChild(borrar.lastChild);
-        }
-        let identificador = id.split("__");
-        let celularElegido = "";
-        for (celu in celulares) {
-            if (celulares[celu].marca == identificador[1]) {
-                if (celulares[celu].modelo == identificador[2]) {
-                    if (celulares[celu].color == identificador[3]) {
-                        celularElegido = "";
-                        celularElegido = celulares[celu];
-                    }
+    const borrar = document.getElementById("modal-content");
+    while (borrar.firstChild) {
+        borrar.removeChild(borrar.lastChild);
+    }
+    let identificador = id.split("__");
+    let celularElegido = "";
+    for (celu in celulares) {
+        if (celulares[celu].marca == identificador[1]) {
+            if (celulares[celu].modelo == identificador[2]) {
+                if (celulares[celu].color == identificador[3]) {
+                    celularElegido = "";
+                    celularElegido = celulares[celu];
                 }
             }
         }
-        if (id.slice(0, 8) === "btnModal") {
-            modal.style.display = "block";
-            body.style.position = "static";
-            body.style.height = "100%";
-            body.style.overflow = "hidden";
-            padre = document.getElementById("modal-content");
-            let contenedor = document.createElement("div");
-            contenedor.innerHTML = `
+    }
+    if (id.slice(0, 8) === "btnModal") {
+        $("#modal").fadeIn();
+        modal.style.display = "block";
+        body.style.position = "static";
+        body.style.height = "100%";
+        body.style.overflow = "hidden";
+        padre = document.getElementById("modal-content");
+        let contenedor = document.createElement("div");
+        var name = "";
+        contenedor.innerHTML = `
             <span class="close">×</span>
-            <div class=modalSpecs> 
+            <div class="modalSpecs"> 
                 <div>
                     <img src="${celularElegido.fotofront}" alt="Image" class="mr-3 container__image">
                     <img src="${celularElegido.fotoback}" alt="Image" class="mr-3 container__image">
                 </div>
                 <div>
                     <h2>${celularElegido.marca} ${celularElegido.modelo}</h2>
-                    <p class=tituloSpecs>Color: <span>${celularElegido.color}</span></p>
-                    <p class=tituloSpecs>Sistema Operativo: <span>${celularElegido.so}</span></p>
-                    <p class=tituloSpecs>Pantalla: <span>${celularElegido.pantalla}</span></p>
-                    <p class=tituloSpecs>Camara: <span>${celularElegido.camara}</span></p>
-                    <p class=tituloSpecs>Precio: <span class=precioModal>$${celularElegido.precio}</span></p>
+                    <p class="tituloSpecs">Color: <span>${celularElegido.color}</span></p>
+                    <p class="tituloSpecs">Sistema Operativo: <span>${celularElegido.so}</span></p>
+                    <p class="tituloSpecs">Pantalla: <span>${celularElegido.pantalla}</span></p>
+                    <p class="tituloSpecs">Camara: <span>${celularElegido.camara}</span></p>
+                    <p class="tituloSpecs">Precio: <span class="precioModal">$${celularElegido.precio}</span></p>
                 </div>
             </div>
             `;
-            padre.appendChild(contenedor);
-        } else if (id.slice(0, 7) === "comprar") {
-            modal.style.display = "block";
-            body.style.position = "static";
-            body.style.height = "100%";
-            body.style.overflow = "hidden";
-            padre = document.getElementById("modal-content");
-            let ingreso = "";
-            if (!localStorage.getItem("name")) {
-                ingreso = prompt("Hola, cual es tu nombre?")
-                localStorage.setItem("name", ingreso);
-            } else {
-                ingreso = localStorage.getItem("name");
-            }
-            let contenedor = document.createElement("div");
-            contenedor.innerHTML = `
+        padre.appendChild(contenedor);
+
+    } else if (id.slice(0, 7) === "comprar") {
+        modal.style.display = "block";
+        body.style.position = "static";
+        body.style.height = "100%";
+        body.style.overflow = "hidden";
+        padre = document.getElementById("modal-content");
+        let ingreso = "";
+        if (!localStorage.getItem("name")) {
+            ingreso = prompt("Hola, cual es tu nombre?")
+            localStorage.setItem("name", ingreso);
+        } else {
+            ingreso = localStorage.getItem("name");
+        }
+        let contenedor = document.createElement("div");
+        contenedor.innerHTML = `
             <span class="close">×</span>
-            <div class=modalCompra> 
+            <div class="modalCompra"> 
                 <p>${ingreso}, vas a comprar un ${celularElegido.marca} ${celularElegido.modelo} ${celularElegido.color}</p>
                 <p>Vas a pagar $${celularElegido.precio}</p>
+                <button id="formasdePago">Formas de Pago</button>
             </div>
             `;
-            padre.appendChild(contenedor);
-        }
-    }
-
-    span.onclick = function () {
+        padre.appendChild(contenedor);
+        localStorage.removeItem("comprado");
+        localStorage.setItem("comprado", JSON.stringify(celularElegido));
+    } else if (id == "formasdePago") {
         modal.style.display = "none";
-        body.style.position = "inherit";
-        body.style.height = "auto";
-        body.style.overflow = "visible";
+        modal.style.display = "block";
+        body.style.position = "static";
+        body.style.height = "100%";
+        body.style.overflow = "hidden";
+        padre = document.getElementById("modal-content");
+        let contenedor = document.createElement("div");
+        contenedor.innerHTML = `
+            <span class="close">×</span>
+            <div class="comprado"> 
+                Gracias por tu comprar!
+            </div>
+            `;
+        padre.appendChild(contenedor);
+        localStorage.removeItem("comprado");
+    } else if (id.slice(0, 7) === "compraR") {
+        modal.style.display = "block";
+        body.style.position = "static";
+        body.style.height = "100%";
+        body.style.overflow = "hidden";
+        padre = document.getElementById("modal-content");
+        let ingreso = "";
+        if (!localStorage.getItem("name")) {
+            ingreso = prompt("Hola, cual es tu nombre?")
+            localStorage.setItem("name", ingreso);
+        } else {
+            ingreso = localStorage.getItem("name");
+        }
+
+        celularElegido = localStorage.getItem("comprado");
+        console.log(celularElegido);
+        celularElegido = JSON.parse(celularElegido);
+        console.log(celularElegido);
+
+        let contenedor = document.createElement("div");
+        contenedor.innerHTML = `
+            <span class="close">×</span>
+            <div class="modalCompra"> 
+                <p>${ingreso}, vas a comprar un ${celularElegido.marca} ${celularElegido.modelo} ${celularElegido.color}</p>
+                <p>Vas a pagar $${celularElegido.precio}</p>
+                <button id="formasdePago">Formas de Pago</button>
+            </div>
+            `;
+        padre.appendChild(contenedor);
+
+    } else if (id == "registro") {
+        $("#modal").fadeIn();
+        modal.style.display = "block";
+        body.style.position = "static";
+        body.style.height = "100%";
+        body.style.overflow = "hidden";
+        padre = document.getElementById("modal-content");
+        let contenedor = document.createElement("div");
+        contenedor.innerHTML = `
+            <span class="close">×</span>
+            <div class="modalRegistro"> 
+                <div>
+                    <h2>Registro</h2>
+                    <form id="formularioRegistro" class"formularioRegistro">
+                        <label class="registro">Nombre</label>
+                        <input type="text" name="nombre" id="nombre" class="registro" value="">
+                        <label class="registro">Email</label>
+                        <input type="mail" name="mail" id="mail" class="registro" value="">
+                        <input type="button" name="botonReg" id="botonReg" value="Aceptar">
+                    </form>
+                </div>                
+            </div>
+            `;
+        padre.appendChild(contenedor);
+        $("#botonReg").click(function () {
+            name = $("#nombre").val();
+            localStorage.setItem("name", name);
+            modal.style.display = "none";
+            body.style.position = "static";
+            body.style.height = "100%";
+            body.style.overflow = "visible";
+            location.reload();
+        }
+        )
     }
+    $(".modalContainer").on("click", "span", function () {
+        modal.style.display = "none";
+        body.style.position = "static";
+        body.style.height = "100%";
+        body.style.overflow = "visible";
+        location.reload();
+    });
 }
 
 
@@ -297,15 +392,14 @@ crearArray(celulares);
 crearFiltroMarca();
 crearFiltroColor();
 
-let btnFiltro = document.getElementById("btnFiltro");
-btnFiltro.onclick = () => {
-    eliminarCards();
-    filtros();
-}
-
 $(document).on('click', 'button', function () {
     let id = this.id;
-    modal(id);
+    if (id === "btnFiltro") {
+        eliminarCards();
+        filtros();
+    } else {
+        modal(id);
+    }
 });
 
 
