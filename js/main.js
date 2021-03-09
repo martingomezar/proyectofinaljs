@@ -27,7 +27,7 @@ function nameStorage() {
     if (!localStorage.getItem("name")) {
         let padreSaludo = document.getElementById("bienvenida");
         let saludo = document.createElement("p");
-        saludo.innerHTML = `<h5 class="saludo">Hola Extraño!, vamos a buscar tu celular!, queres <button id="registro">registrarte?</button></h5>`;
+        saludo.innerHTML = `<h5 class="saludo">Hola Extraño!, vamos a buscar tu celular!, queres <button id="registro" class="btn btn-info">registrarte?</button></h5>`;
         padreSaludo.appendChild(saludo);
     } else if (localStorage.getItem("name")) {
         ingreso = localStorage.getItem("name");
@@ -36,7 +36,7 @@ function nameStorage() {
             let saludo = document.createElement("p");
             saludo.innerHTML =
                 `<h5 class="saludo">Hola ${ingreso}, tenes un celular en tu carrito de compras</h5>
-                <button class="comprar" id="compraRecuperar">Ir carrito de compras</button>`;
+                <button class="comprar btn btn-info" id="compraRecuperar">Ir carrito de compras</button>`;
 
             padreSaludo.appendChild(saludo);
         } else {
@@ -64,14 +64,14 @@ function crearFiltroColor() {
     ubicacion = document.getElementById("filtros");
     FormData = document.createElement("form");
     FormData.id = "formColor"
-    FormData.className = "form-check";
+    FormData.className = "form-check col-4";
     ubicacion.appendChild(FormData);
     let colores = [];
     for (celu in celulares) {
         if ((!colores.includes(celulares[celu].color)) || (colores.length == 0)) {
             ubicacion = document.getElementById("formColor");
             div = document.createElement("div");
-            div.className = "col-4 form-check filtroBusqueda";
+            div.className = "form-check filtroBusqueda";
             div.id = celulares[celu].color;
             ubicacion.appendChild(div);
             ubicacion = document.getElementById(celulares[celu].color);
@@ -83,7 +83,7 @@ function crearFiltroColor() {
             input.className = "form-check-input";
             label = document.createElement("label");
             label.for = celulares[celu].color;
-            label.className = "form-check-label";
+            label.className = "form-check-label form-label";
             label.innerHTML = `${celulares[celu].color.charAt(0).toUpperCase()}${celulares[celu].color.slice(1)}`;
             ubicacion.appendChild(input);
             ubicacion.appendChild(label);
@@ -100,14 +100,14 @@ function crearFiltroMarca() {
     ubicacion = document.getElementById("filtros");
     FormData = document.createElement("form");
     FormData.id = "formMarca"
-    FormData.className = "form-check";
+    FormData.className = "form-check col-4";
     ubicacion.appendChild(FormData);
     let colores = [];
     for (celu in celulares) {
         if ((!colores.includes(celulares[celu].marca)) || (colores.length == 0)) {
             ubicacion = document.getElementById("formMarca");
             div = document.createElement("div");
-            div.className = "form-check filtroBusqueda";
+            div.className = "filtroBusqueda form-check col-4";
             div.id = celulares[celu].marca;
             ubicacion.appendChild(div);
             ubicacion = document.getElementById(celulares[celu].marca);
@@ -119,7 +119,7 @@ function crearFiltroMarca() {
             input.className = "form-check-input";
             label = document.createElement("label");
             label.for = celulares[celu].marca;
-            label.className = "form-check-label";
+            label.className = "form-check-label form-label";
             label.innerHTML = `${celulares[celu].marca.charAt(0).toUpperCase()}${celulares[celu].marca.slice(1)}`;
             ubicacion.appendChild(input);
             ubicacion.appendChild(label);
@@ -141,12 +141,12 @@ function cards(celular) {
                                     <img src=${celular.fotofront} alt="Image" class="mr-3 container__image">
                                     <div class="media__btn">
                                         <h5>$${celular.precio}</h5>
-                                        <button class="btn" id="btnModal__${celular.marca}__${celular.modelo}__${celular.color}">Detalles</button>
+                                        <button class="btn btn-info" id="btnModal__${celular.marca}__${celular.modelo}__${celular.color}">Detalles</button>
                                         <div id="modal" class="modalContainer">
                                             <div id="modal-content" class="modal-content">
                                             </div>
                                         </div>
-                                        <button class="btn" id="comprar__${celular.marca}__${celular.modelo}__${celular.color}">Comprar</button>
+                                        <button class="btn btn-info" id="comprar__${celular.marca}__${celular.modelo}__${celular.color}">Comprar</button>
                                     </div>
                                 </div>
                                 <div class="media-body tm-bg-gray">
@@ -288,7 +288,7 @@ function modal(id) {
             <div class="modalCompra"> 
                 <p>${ingreso}, vas a comprar un ${celularElegido.marca} ${celularElegido.modelo} ${celularElegido.color}</p>
                 <p>Vas a pagar $${celularElegido.precio}</p>
-                <button id="formasdePago">Formas de Pago</button>
+                <button id="formasdePago" class="btn btn-info">Formas de Pago</button>
             </div>
             `;
         padre.appendChild(contenedor);
@@ -335,7 +335,7 @@ function modal(id) {
             <div class="modalCompra"> 
                 <p>${ingreso}, vas a comprar un ${celularElegido.marca} ${celularElegido.modelo} ${celularElegido.color}</p>
                 <p>Vas a pagar $${celularElegido.precio}</p>
-                <button id="formasdePago">Formas de Pago</button>
+                <button id="formasdePago" class=""btn btn-info>Formas de Pago</button>
             </div>
             `;
         padre.appendChild(contenedor);
@@ -354,11 +354,11 @@ function modal(id) {
                 <div>
                     <h2>Registro</h2>
                     <form id="formularioRegistro" class"formularioRegistro">
-                        <label class="registro">Nombre</label>
+                        <label class="registro form-label">Nombre</label>
                         <input type="text" name="nombre" id="nombre" class="registro" value="">
-                        <label class="registro">Email</label>
+                        <label class="registro form-label">Email</label>
                         <input type="mail" name="mail" id="mail" class="registro" value="">
-                        <input type="button" name="botonReg" id="botonReg" value="Aceptar">
+                        <input type="button" class="btn btn-info" name="botonReg" id="botonReg" value="Aceptar">
                     </form>
                 </div>                
             </div>
