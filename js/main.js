@@ -21,6 +21,17 @@ class Cellphones {
     }
 }
 
+//Traer Data
+let celulares = [];
+function traerData() {
+    $.getJSON("data/data.json", (respuesta) => {
+        celulares = respuesta;
+        crearArray(celulares);
+        crearFiltroColor(celulares);
+        crearFiltroMarca(celulares);
+    });
+};
+
 //Funcion que pide el nombre si no esta en el Storage, si esta lo usa en el saludo
 function nameStorage() {
     let ingreso = "";
@@ -60,7 +71,7 @@ function crearFlagListadoCelulares() {
 }
 
 //Crear Filtro desde array
-function crearFiltroColor() {
+function crearFiltroColor(celulares) {
     ubicacion = document.getElementById("filtros");
     FormData = document.createElement("form");
     FormData.id = "formColor"
@@ -96,7 +107,7 @@ function crearFiltroColor() {
 
 }
 
-function crearFiltroMarca() {
+function crearFiltroMarca(celulares) {
     ubicacion = document.getElementById("filtros");
     FormData = document.createElement("form");
     FormData.id = "formMarca"
@@ -151,7 +162,8 @@ function cards(celular) {
                                 </div>
                                 <div class="media-body tm-bg-gray">
                                     <div class="tm-description-box">
-                                        <h5 class="tm-text-blue card__description"> ${celular.marca} ${celular.modelo} ${celular.color.charAt(0).toUpperCase()}${celular.color.slice(1)}</h5>
+                                        <h5 class="tm-text-blue card__description"> ${celular.marca} ${celular.modelo} ${celular.color}
+                                        </h5>
                                         <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum ullam similique vitae
                                         molestias voluptatum maiores in numquam aut eum soluta voluptas, quaerat voluptates officiis
                                         possimus fugiat odit temporibus. Error, quis!<a href="https:plus.google.com/+tooplate"
@@ -374,7 +386,56 @@ function modal(id) {
             location.reload();
         }
         )
+    } else if (id == "enviarMail") {
+        name = $("#mailSuscribir").val();
+        var texto = name;
+        var regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+        if (regex.test(texto)) {
+            if (name != "") {
+                $.post("https://jsonplaceholder.typicode.com/posts", name, function (data, status) {
+                    console.log(data);
+                    console.log(status);
+                    if (status == "success") {
+                        $("#modal").fadeIn();
+                        modal.style.display = "block";
+                        body.style.position = "static";
+                        body.style.height = "100%";
+                        body.style.overflow = "hidden";
+                        padre = document.getElementById("modal-content");
+                        let contenedor = document.createElement("div");
+                        contenedor.innerHTML = `
+                        <span class="close">×</span>
+                            <div class="modalRegistro">
+                            <div>
+                                <h2>Registrado con exito</h2>
+                            </div>                
+                        </div>
+                        `;
+                        padre.appendChild(contenedor);
+                    }
+                }
+                );
+            }
+        }else{
+            $("#modal").fadeIn();
+                        modal.style.display = "block";
+                        body.style.position = "static";
+                        body.style.height = "100%";
+                        body.style.overflow = "hidden";
+                        padre = document.getElementById("modal-content");
+                        let contenedor = document.createElement("div");
+                        contenedor.innerHTML = `
+                        <span class="close">×</span>
+                            <div class="modalRegistro">
+                            <div>
+                                <h2>Ingrese un mail valido</h2>
+                            </div>                
+                        </div>
+                        `;
+                        padre.appendChild(contenedor);
+        }
     }
+
     $(".modalContainer").on("click", "span", function () {
         modal.style.display = "none";
         body.style.position = "static";
@@ -386,9 +447,11 @@ function modal(id) {
 
 
 //Flujo de la web
+
+
 nameStorage();
 crearFlagListadoCelulares();
-crearArray(celulares);
+traerData();
 crearFiltroMarca();
 crearFiltroColor();
 
@@ -401,18 +464,3 @@ $(document).on('click', 'button', function () {
         modal(id);
     }
 });
-
-
-
-
-
-// let marcarIngresada = document.getElementById("marcaIngresada");
-// marcarIngresada.onchange = () => { buscar(marcarIngresada.value); };
-
-// let btnBuscar = document.getElementById("btnBuscar");
-// btnBuscar.onclick = () => {};
-
-// let checkColor = document.getElementsByClassName("form-check");
-// for (color in checkColor){
-//     console.dir(checkColor[color].id);
-// }

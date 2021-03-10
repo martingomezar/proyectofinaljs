@@ -1,5 +1,4 @@
-// Creacion de Array con el constructor
-const celulares = [
+[
     {
         "marca": "Iphone",
         "modelo": "11",
@@ -168,4 +167,4 @@ const celulares = [
         "fotofront": "assets/xiaomiredminote9sfront.jpg",
         "fotoback": "assets/xiaomiredminote9sfront.jpg"
     }
-];
+]
